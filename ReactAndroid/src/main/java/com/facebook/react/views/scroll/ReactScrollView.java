@@ -257,6 +257,10 @@ public class ReactScrollView extends ScrollView implements ReactClippingViewGrou
 
       int scrollWindowHeight = getHeight() - getPaddingBottom() - getPaddingTop();
 
+      if (this.getScaleY() < 0 && Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1) {
+        velocityY *= -1;
+      }
+
       mScroller.fling(
         getScrollX(),
         getScrollY(),
