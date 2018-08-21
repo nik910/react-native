@@ -30,6 +30,7 @@ import com.facebook.react.uimanager.events.NativeGestureUtil;
 import com.facebook.react.views.view.ReactViewBackgroundManager;
 import java.lang.reflect.Field;
 import javax.annotation.Nullable;
+import android.os.Build;
 
 /**
  * A simple subclass of ScrollView that doesn't dispatch measure and layout to its children and has
@@ -256,6 +257,10 @@ public class ReactScrollView extends ScrollView implements ReactClippingViewGrou
       // aborts the scroller animation when we get to the bottom of the ScrollView content.
 
       int scrollWindowHeight = getHeight() - getPaddingBottom() - getPaddingTop();
+
+      if (Build.VERSION.SDK_INT > 27) {
+        velocityY *= -1;
+      }
 
       mScroller.fling(
         getScrollX(),
